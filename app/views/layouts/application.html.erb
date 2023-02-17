@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Taskleaf</title>
+    <title>Todoリスト</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,7 +12,27 @@
 
   <body>
     <div class="app-title navbar navbar-expand-md navbar-light bg-light"> 
-        <div class="navbar-brand">Taskleaf</div>
+        <div class="navbar-brand">Todoリスト</div>
+
+        <ul class= "navbar-nav ml-auto">
+          <% if current_user%>
+           <li class ="nav-item">
+            <%= link_to 'タスク一覧', tasks_path, class: 'nav-link' %>
+           </li>
+            <% if current_user.admin?%>
+              <li class ="nav-item">
+              <%= link_to 'ユーザー一覧', admin_users_path, class: 'nav-link' %>
+              </li>
+            <% end %>
+           <li class ="nav-item"> 
+            <%= link_to 'ログアウト', logout_path, data: { turbo_method: :delete },  class: 'nav-link' %>
+           </li>
+          <% else %>
+           <li class ="nav-item">
+            <%= link_to 'ログイン', login_path, class: 'nav-link' %>
+           </li>
+          <% end %>
+        </ul>
     </div>
 
     <div class="container">
