@@ -6,9 +6,13 @@ class Task < ApplicationRecord
     validate :validate_name_not_including_comma
 
     belongs_to :user
+    has_one_attached :image do |attachable|
+        attachable.variant :display, resize_to_limit: [400, 400]
+      end
 
-
-
+    def self.ransackable_attributes(auth_object = nil)
+        ["created_at", "name"]
+    end
 
     private
 
